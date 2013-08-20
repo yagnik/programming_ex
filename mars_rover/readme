@@ -1,0 +1,62 @@
+Mars Rover technical assignment
+
+Usage:
+  - The file runs using python 2.7.2
+  - In order to run tests: python main.py -t
+  - In order to run from command prompt: python main.py
+
+Overall notes:
+  I personally refrain from adding inline comments till the time I do something fancy. The code should do the talking.
+  My code assumes that the person looking at this has knowledge of python and vector algebra.
+  Overall I think I made 2 major decisions:
+    - To use vector algebra instead of if else statement which made my implementation straightforward
+    - To add a directory structure to the solution even though it could be solved with 3 files. If this was
+      the end of the assignment I would probably use just three files to implement as I don't have to worry about extending but
+      production code should be easy to understand and extend hence I added a directory structure so that when someone asks me to add a new rover I can add it to rover directory etc.
+
+Details (this felt a lot like an assignment in university :D):
+
+Requirements
+  - A rover which is able to move on 2 dimensional grid
+  - Take input for plateau size, rover position and list of commands
+  - Allow moving and turning of rover on 2d grid
+
+Code strategy:
+  - This is a 2d vector problem, while the assignment tells about the next point when moved, it could
+    be extended to 2d vector so that an angle and distance value (assumed 1 here) determines how the rover moves
+  - main.py
+    - This file hosts the main runner code which decides whether to run tests or the program from terminal
+    - The file is also responsible for reading in data and calling appropriate parsers along with building rover object
+  - io/parser.py
+    - This file hosts the numerous parsers that are used to parse input data into approriate data structures
+  - rovers/mars_rover.py
+    - This file hosts the MarsRover class which is the rover object
+    - The class allows the object to move forward in certain direction along with turn left and right
+    - Finally this class also has a get_position method which gives the current position as per the requirement
+      - Note: The get_position could possibly be seperated out to a decorator module which would take in a rover.
+        I felt that if numerous rovers are added then the get_position could be generalized in either a decorator or parent class.
+  - tests/
+    - Hosts all unittests for parser.py and mars_rover.py
+    - Also includes testrunner which is used only to run the specific tests using unittest
+
+Structure/design strategy
+  - The whole could be flattened down to 3 files: rover.py, main.py and tests.py. While these files would achieve the same
+    functionality, lack of code organization would lead to issues when new programmers extend the code.
+  - My goal was to build a production level code which would allow the code to be extended in case NASA decides to send
+    a rover to venus or our rover could move to different locations with different angle and distance.
+
+
+Testing strategy:
+  - Unit tests are added for all functionality along with functional tests for move functionality of rover
+
+Assumptions:
+  - The assignment was unclear as to what to do with plateau edge hence it is not used in this assignment
+  - The assignment was unclear about what to do in case of exception which is why the program aborts in case exception is reached.
+    The code be easily extended to have exceptions which would not abort the program and instead allow the user to input data again.
+
+Future considerations:
+  - As the code has been made to have low maintenance and high future compatibility, this could be extended to support plateau size,
+    various distances and angles.
+  - The code could also be extended to other rovers of different types with other functionality.
+  - The code could also add modules to existing rovers to increase their functionality.
+  - All of the above could be achieved without changing much of existing code.
